@@ -1,3 +1,7 @@
+import './style.css'
+
+
+
 interface Commande {
     id: number;
     nom: string;
@@ -29,9 +33,6 @@ const maCommande: Commande[] = [
         prix: 7.9
     }
 ]
-
-    
-
 
 
 console.log(maCommande); // pour afficher en console les données. 
