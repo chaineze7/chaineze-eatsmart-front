@@ -43,22 +43,32 @@ async function init() {
             // Pour chaque article on crée une carte
             return `
             <div class="card">
-                <h3>${c.nom}</h2>
+                <h3>${c.nom}</h3>
                 <p>${c.description}</p>
                 <p><strong> Prix : ${c.prix} €</strong></p>
                 
-            </div>`
+                <button class="btn-order">
+                    Ajouter 
+                </button>
+                
+            </div>`;
 
             // Utilisation du join pour "coller" tous les éléments du tableau sans aucun séparateur 
-        }).join('')
-    } 
+            }).join('')
+        } `;
 
-    `;
+    
+        
+
+       
+    }  
 }
 
-}
+    
+
 // Affichage 
 init();
+
 
 
 
