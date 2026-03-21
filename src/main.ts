@@ -12,6 +12,9 @@ interface Article {
 
 }
 
+// tableau panier 
+let panier: Article[] = []
+
 // Fonction qui récupère les articles depuis l'api ou y'a la BDD
 
 async function fetchArticle(): Promise<Article[]> {
@@ -70,6 +73,13 @@ async function init() {
 
                 // affiche le nom du plat 
                 console.log(`Bouton n°${index} cliqué ! `,"Article = ", article.nom);
+
+                // ajout du panier 
+                panier.push(article);
+
+                // affiche le panier dans la console
+                console.log("Panier actuel :", panier);
+
             });
         });
     
