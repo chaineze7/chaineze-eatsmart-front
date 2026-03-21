@@ -56,7 +56,22 @@ async function init() {
             // Utilisation du join pour "coller" tous les éléments du tableau sans aucun séparateur 
             }).join('')
         } `;
+        // Récupère tous les boutons
+        const boutons = document.querySelectorAll<HTMLButtonElement>('.btn-order');
 
+        // ajout d'un event à chaque bouton
+        boutons.forEach((btn, index) => {
+            
+
+            btn.addEventListener('click', () => {
+
+                // récupère le bon article 
+                const article = articles[index];
+
+                // affiche le nom du plat 
+                console.log(`Bouton n°${index} cliqué ! `,"Article = ", article.nom);
+            });
+        });
     
         
 
