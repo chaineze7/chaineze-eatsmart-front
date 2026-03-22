@@ -41,24 +41,43 @@ async function init() {
     if (appDiv) {
         appDiv.innerHTML= `
     
-        ${articles.map(c => {
+        <header>
+            <h1>EatSmart - Carte du restaurant</h1>
+        </header>
+    
+        <div class="content-wrapper">
 
-            // Pour chaque article on crée une carte
-            return `
-            <div class="card">
-                <h3>${c.nom}</h3>
-                <p>${c.description}</p>
-                <p><strong> Prix : ${c.prix} €</strong></p>
-                
-                <button class="btn-order">
-                    Ajouter 
-                </button>
-                
-            </div>`;
+            <main class="menu-container">
+                ${articles.map(c => `
 
-            // Utilisation du join pour "coller" tous les éléments du tableau sans aucun séparateur 
-            }).join('')
-        } `;
+                    
+                    <div class="card">
+                        <h3>${c.nom}</h3>
+                        <p>${c.description}</p>
+                        <p><strong> Prix : ${c.prix} €</strong></p>
+                        
+                        <button class="btn-order">Ajouter </button>
+                        
+                    </div>
+
+                
+                `).join('')} 
+            </main>
+
+            <aside class="cart-container">
+                <h2>Votre Panier</h2>
+                <div id="cart-items">
+                    <p>Votre panier est vide</p>
+                </div>
+                <hr>
+                <div class="cart-total">
+                    <strong>Total : <span id="total-prix">0.00</span>€</strong>
+                </div>
+            </aside>
+        </div>
+        `;
+
+        
         // Récupère tous les boutons
         const boutons = document.querySelectorAll<HTMLButtonElement>('.btn-order');
 
