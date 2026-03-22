@@ -63,13 +63,8 @@ function afficherPanier() {
  
 // Fonction principale avec le code qui sera afficher 
 async function init() {
-    console.log("Chargement des données...");
-
+    
     const articles = await fetchArticle();
-
-    // Affichage dans la console 
-    console.log(articles);
-
 
     // On précise <HTMLDivElement> pour que TS connaisse les propriétés de la DIV
     const appDiv = document.querySelector<HTMLDivElement>('#app')
@@ -119,7 +114,6 @@ async function init() {
 
         // ajout d'un event à chaque bouton
         boutons.forEach((btn, index) => {
-            
 
             btn.addEventListener('click', () => {
 
