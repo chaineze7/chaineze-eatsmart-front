@@ -24,6 +24,32 @@ async function fetchArticle(): Promise<Article[]> {
 }
 
  
+
+function renderCart() {
+    const cartItemsDiv = document.querySelector<HTMLDivElement>('#cart-items');
+    const totalPrixSpan = document.querySelector<HTMLSpanElement>('#total-prix');
+
+    if (!cartItemsDiv || !totalPrixSpan) return; 
+
+    // si le panier est vide
+    if (panier.length==0) {
+        cartItemsDiv.innerHTML = `<p>Votre panier est vide</p>`;
+        totalPrixSpan.textContent = "0.00";
+        return;
+    }
+
+    cartItemsDiv.innerHTML = panier.map(article => `
+        <div class="cart-item">
+            <span>${article.nom}</span>
+            <span>${article.prix}</span>
+        </div>
+    `).join('');
+
+    const total = panier.reduce((sum, article) => sum + article.prix, 0);
+
+    
+}
+
 // Fonction principale avec le code qui sera afficher 
 async function init() {
     console.log("Chargement des données...");
@@ -77,7 +103,7 @@ async function init() {
         </div>
         `;
 
-        
+
         // Récupère tous les boutons
         const boutons = document.querySelectorAll<HTMLButtonElement>('.btn-order');
 
@@ -98,6 +124,8 @@ async function init() {
 
                 // affiche le panier dans la console
                 console.log("Panier actuel :", panier);
+
+                renderCart();
 
             });
         });
