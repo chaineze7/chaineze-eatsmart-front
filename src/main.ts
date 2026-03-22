@@ -48,12 +48,15 @@ function afficherPanier() {
         cartDiv.innerHTML += `
             <div class="cart-item">
                 <span>${article.nom}</span>
-                <span>${article.prix} €</span>
+                <span>${Number(article.prix).toFixed(2)} €</span>
             </div>
         `;
         // calcul total
         total = total + Number(article.prix);
     });
+
+    // Affichage du total 
+    totalSpan.textContent = total.toFixed(2);
 
      
 }
@@ -88,7 +91,7 @@ async function init() {
                     <div class="card">
                         <h3>${c.nom}</h3>
                         <p>${c.description}</p>
-                        <p><strong> Prix : ${c.prix} €</strong></p>
+                        <p><strong> Prix : ${Number(c.prix).toFixed(2)} €</strong></p>
                         
                         <button class="btn-order">Ajouter </button>
                         
