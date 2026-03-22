@@ -12,7 +12,8 @@ interface Article {
 
 }
 
-
+// tableau panier 
+let panier: Article[] = []
 
 // Fonction qui récupère les articles depuis l'api ou y'a la BDD
 
@@ -22,8 +23,7 @@ async function fetchArticle(): Promise<Article[]> {
      return await res.json();
 }
 
-// tableau panier 
-let panier: Article[] = []
+
 
 // Fonction pour afficher les articles ajouter dans le panier 
 function afficherPanier() {
@@ -48,7 +48,7 @@ function afficherPanier() {
         cartDiv.innerHTML += `
             <div class="cart-item">
                 <span>${article.nom}</span>
-                <span>${Number(article.prix).toFixed(2)} €</span>
+                <span>${Number(article.prix)} €</span>
             </div>
         `;
         // calcul total
