@@ -12,8 +12,7 @@ interface Article {
 
 }
 
-// tableau panier 
-let panier: Article[] = []
+
 
 // Fonction qui récupère les articles depuis l'api ou y'a la BDD
 
@@ -23,33 +22,42 @@ async function fetchArticle(): Promise<Article[]> {
      return await res.json();
 }
 
- 
+// tableau panier 
+let panier: Article[] = []
 
-function renderCart() {
-    const cartItemsDiv = document.querySelector<HTMLDivElement>('#cart-items');
-    const totalPrixSpan = document.querySelector<HTMLSpanElement>('#total-prix');
+// Fonction pour afficher les articles ajouter dans le panier 
+function afficherPanier() {
+    const cartDiv = document.getElementById("cart-items");
+    const totalSpan = document.getElementById("total-prix");
 
-    if (!cartItemsDiv || !totalPrixSpan) return; 
+    if (!cartDiv || !totalSpan) return ;
 
-    // si le panier est vide
-    if (panier.length==0) {
-        cartItemsDiv.innerHTML = `<p>Votre panier est vide</p>`;
-        totalPrixSpan.textContent = "0.00";
+    // Si le panier est vide 
+    if (panier.length === 0) {
+        cartDiv.innerHTML = `<p>Votre panier est vide</p>`;
+        totalSpan.textContent = "0.00";
         return;
     }
 
-    cartItemsDiv.innerHTML = panier.map(article => `
-        <div class="cart-item">
-            <span>${article.nom}</span>
-            <span>${article.prix}</span>
-        </div>
-    `).join('');
+    // On vide le panier avant l'ajout des articles
+    cartDiv.innerHTML = "";
+    let total = 0;
 
-    const total = panier.reduce((sum, article) => sum + article.prix, 0);
+    // Regarde tous les articles 
+    panier.forEach(article => {
+        cartDiv.innerHTML += `
+            <div class="cart-item">
+                <span>${article.nom}</span>
+                <span>${article.prix} €</span>
+            </div>
+        `;
+        // calcul total
+        total = total + Number(article.prix);
+    });
 
-    
+     
 }
-
+ 
 // Fonction principale avec le code qui sera afficher 
 async function init() {
     console.log("Chargement des données...");
@@ -102,8 +110,7 @@ async function init() {
             </aside>
         </div>
         `;
-
-
+        
         // Récupère tous les boutons
         const boutons = document.querySelectorAll<HTMLButtonElement>('.btn-order');
 
@@ -125,7 +132,7 @@ async function init() {
                 // affiche le panier dans la console
                 console.log("Panier actuel :", panier);
 
-                renderCart();
+                afficherPanier();
 
             });
         });
