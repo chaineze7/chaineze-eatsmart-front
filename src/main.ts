@@ -105,6 +105,8 @@ async function init() {
                 <div class="cart-total">
                     <strong>Total : <span id="total-prix">0.00</span>€</strong>
                 </div>
+
+                <button id="btn-valider">Valider la commande</button>
             </aside>
         </div>
         `;
@@ -133,6 +135,17 @@ async function init() {
 
             });
         });
+
+        const btnValider = document.querySelector<HTMLButtonElement>('#btn-valider');
+
+        if (btnValider) {
+
+
+            btnValider.addEventListener('click', () => {
+
+                console.log("Bouton valider commande cliqué");
+            })
+        }
     
         
 
