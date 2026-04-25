@@ -23,19 +23,25 @@ async function fetchArticle(): Promise<Article[]> {
      return await res.json();
 }
 
+interface CommandeDTO {
+    id_commande: number | null;
+    date_commande: string;
+    prix_total: number;
+    etat: string;
+}
 
 
 // Fonction pour afficher les articles ajouter dans le panier 
 function afficherPanier() {
     const cartDiv = document.getElementById("cart-items");
-    const totalSpan = document.getElementById("total-prix");
+    const totalPrix = document.getElementById("total-prix");
 
-    if (!cartDiv || !totalSpan) return ;
+    if (!cartDiv || !totalPrix) return ;
 
     // Si le panier est vide 
     if (panier.length === 0) {
         cartDiv.innerHTML = `<p>Votre panier est vide</p>`;
-        totalSpan.textContent = "0.00";
+        totalPrix.textContent = "0.00";
         return;
     }
 
@@ -56,7 +62,7 @@ function afficherPanier() {
     });
 
     // Affichage du total 
-    totalSpan.textContent = total.toFixed(2);
+    totalPrix.textContent = total.toFixed(2);
 
      
 }
@@ -141,10 +147,25 @@ async function init() {
         if (btnValider) {
 
 
-            btnValider.addEventListener('click', () => {
+            btnValider.addEventListener('click', async () => {
 
                 console.log("Bouton valider commande cliqué");
-            })
+
+                const total = panier.reduce((sum, articles) => sum + Number(articles.prix), 0);
+
+                const maintenant = new Date();
+                const dateMySQL = maintenant.toISOString().slice(0, 19).replace('T', ' ');
+
+
+                const nouvelleCommande: CommandeDTO = {
+                    id_commande: null,
+                    date_commande: dateMySQL,
+                    prix_total: total,
+                    etat: "en cours"
+                };
+
+                console.log(nouvelleCommande);
+            });
         }
     
         
