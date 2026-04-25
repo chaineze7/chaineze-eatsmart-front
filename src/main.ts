@@ -23,7 +23,7 @@ async function fetchArticle(): Promise<Article[]> {
      return await res.json();
 }
 
-// interface permettant d'afficher dans la console JSON représentant une commande
+// interface permettant d'afficher dans la console JSON représentant une commande (playload)
 interface CommandeDTO {
     id_commande: number | null;
     date_commande: string;
@@ -152,7 +152,7 @@ async function init() {
 
                 console.log("Bouton valider commande cliqué");
 
-                // calcul du total
+                // On calcul le prix total
                 const total = panier.reduce((sum, articles) => sum + Number(articles.prix), 0);
 
 
@@ -172,18 +172,20 @@ async function init() {
                 console.log(nouvelleCommande);
 
 
-                // Envoi POST
+                // Envoi des données avec POST
                 const response = await fetch('http://localhost/eatsmart-chaineze/commandes', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(nouvelleCommande)
                 });
 
+                // On transforme la réponse du serveur en objet exploitable
                 const result = await response.json();
 
+                // Souvent, l'API renvoie un tableau contenant le résultat
                 const id_commande = result[0].id_commande;
 
-                console.log("Commande enregistrée avec succès, ID:", id_commande);
+                console.log("Succès :", id_commande);
             });
 
 
