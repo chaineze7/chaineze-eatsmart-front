@@ -23,6 +23,7 @@ async function fetchArticle(): Promise<Article[]> {
      return await res.json();
 }
 
+// interface permettant d'afficher dans la console JSON représentant une commande
 interface CommandeDTO {
     id_commande: number | null;
     date_commande: string;
@@ -151,12 +152,15 @@ async function init() {
 
                 console.log("Bouton valider commande cliqué");
 
+                // calcul du total
                 const total = panier.reduce((sum, articles) => sum + Number(articles.prix), 0);
 
+
+                // Format date MySQL
                 const maintenant = new Date();
                 const dateMySQL = maintenant.toISOString().slice(0, 19).replace('T', ' ');
 
-
+                // Creation du playload
                 const nouvelleCommande: CommandeDTO = {
                     id_commande: null,
                     date_commande: dateMySQL,
@@ -164,8 +168,26 @@ async function init() {
                     etat: "en cours"
                 };
 
+                
                 console.log(nouvelleCommande);
+
+
+                // Envoi POST
+                const response = await fetch('http://localhost/eatsmart-chaineze/commandes', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(nouvelleCommande)
+                });
+
+                const result = await response.json();
+
+                const id_commande = result[0].id_commande;
+
+                console.log("Commande enregistrée avec succès, ID:", id_commande);
             });
+
+
+
         }
     
         
