@@ -172,6 +172,15 @@ async function init() {
                 
                 console.log(nouvelleCommande);
 
+                // Rénitialisation du panier
+                panier = [];
+
+                // Mise à jour de l'affichage 
+                afficherPanier();
+
+                // Message 
+                alert("Commande validée !");
+
 
                 
 
