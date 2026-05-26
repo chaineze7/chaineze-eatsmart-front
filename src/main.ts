@@ -172,20 +172,9 @@ async function init() {
                 console.log(nouvelleCommande);
 
 
-                // Envoi des données avec POST
-                const response = await fetch('http://localhost/eatsmart-chaineze/commandes', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(nouvelleCommande)
-                });
+                
 
-                // On transforme la réponse du serveur en objet exploitable
-                const result = await response.json();
-
-                // Souvent, l'API renvoie un tableau contenant le résultat
-                const id_commande = result[0].id_commande;
-
-                console.log("Succès :", id_commande);
+            
             });
 
 
