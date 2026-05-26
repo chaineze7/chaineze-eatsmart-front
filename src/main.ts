@@ -3,7 +3,7 @@
 import './style.css'
 
 
-
+// Interface article (article récupéré depuis l'API)
 interface Article {
     id: number;
     nom: string;
@@ -12,7 +12,7 @@ interface Article {
 
 }
 
-// tableau panier 
+// tableau panier contenant les articles ajoutés par l'utilisateur 
 let panier: Article[] = []
 
 // Fonction qui récupère les articles depuis l'api ou y'a la BDD
@@ -50,7 +50,7 @@ function afficherPanier() {
     cartDiv.innerHTML = "";
     let total = 0;
 
-    // Regarde tous les articles 
+    // Regarde tous les articles du panier
     panier.forEach(article => {
         cartDiv.innerHTML += `
             <div class="cart-item">
@@ -132,7 +132,7 @@ async function init() {
                 // affiche le nom du plat 
                 console.log(`Bouton n°${index} cliqué ! `,"Article = ", article.nom);
 
-                // ajout du panier 
+                // ajout au panier 
                 panier.push(article);
 
                 // affiche le panier dans la console
@@ -143,6 +143,7 @@ async function init() {
             });
         });
 
+        // validation commande 
         const btnValider = document.querySelector<HTMLButtonElement>('#btn-valider');
 
         if (btnValider) {
@@ -160,7 +161,7 @@ async function init() {
                 const maintenant = new Date();
                 const dateMySQL = maintenant.toISOString().slice(0, 19).replace('T', ' ');
 
-                // Creation du playload
+                // Creation du playload de la commande
                 const nouvelleCommande: CommandeDTO = {
                     id_commande: null,
                     date_commande: dateMySQL,
